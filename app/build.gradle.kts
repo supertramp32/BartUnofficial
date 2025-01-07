@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 // Load local.properties file
@@ -73,9 +75,12 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
 
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation (libs.glide)
+    implementation(libs.coroutine)
 
+    //Hilt and its compiler
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 
 
     testImplementation(libs.junit)

@@ -6,14 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.example.bart.model.ApiResponse
 import com.example.bart.model.Etd
 import com.example.bart.model.LoadingState
-import com.example.bart.retrofit.RetrofitClient
+import com.example.bart.retrofit.ApiInterface
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RealTimeActivityViewModel: ViewModel() {
-
-    val apiClient = RetrofitClient.apiService
+@HiltViewModel
+class RealTimeActivityViewModel
+    @Inject constructor(private val apiInterface: ApiInterface): ViewModel() {
 
     val allStations= MutableLiveData<List<Etd>>()
 
@@ -28,7 +30,7 @@ class RealTimeActivityViewModel: ViewModel() {
         loadingStateLiveData.value = LoadingState.LOADING
         CoroutineScope(Dispatchers.IO).launch {
             try{
-                     val response = apiClient.getRealTimeBartSchedule()
+                     val response = apiInterface.getRealTimeBartSchedule()
                     if(response.isSuccessful){
                         val data: ApiResponse? = response.body()
                         Log.d("DataTest", data!!.root.station[0].name)

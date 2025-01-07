@@ -12,7 +12,9 @@ import com.example.bart.R
 import com.example.bart.databinding.ActivityRealTimeBinding
 import com.example.bart.model.LoadingState
 import com.example.bart.viewmodel.RealTimeActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RealTimeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRealTimeBinding
